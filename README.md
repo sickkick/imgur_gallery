@@ -41,9 +41,8 @@ This project uses the Gradle build system. To build this project, use the
 Screenshots
 -----------
 
-![LegoThemeFragment](screenshots/phone_legotheme.png "Browse Themes ")
-![LegoSetsFragment Grid](screenshots/phone_legosets_grid.png "Browse sets in grid view")
-![LegoSetFragment](screenshots/phone_legoset.png "Lego set")
+![SearchFragment](screenshots/Screenshot_1612814670.png "Search Albums")
+![SearchFragment Results](screenshots/Screenshot_1612814690.png "Browse sets in grid view")
 
 Libraries Used
 --------------
