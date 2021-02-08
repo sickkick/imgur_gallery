@@ -13,7 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.databinding.BindingAdapter
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import java.util.*
 
 
@@ -35,6 +36,7 @@ fun bindIsVisible(view: View, visible: Boolean) {
     }
 }
 
+/*
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
@@ -46,20 +48,23 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
     }
 }
 
+ */
+
+@BindingAdapter("imageFromUrl")
+fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
+    if (!imageUrl.isNullOrEmpty()) {
+        Glide.with(view.context)
+            .load(imageUrl)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(view)
+    }
+}
+
 @BindingAdapter("videoView")
 fun bindVideoFromUrl(videoView: VideoView, videoUrl: String?) {
     val uri: Uri = Uri.parse(videoUrl)
     videoView.setVideoURI(uri)
     //simpleVideoView.start()
-}
-
-@BindingAdapter("buttonImageFromUrl")
-fun bindButtonImageFromUrl(view: ImageView, imageUrl: String?) {
-    if (!imageUrl.isNullOrEmpty()) {
-        Picasso.get()
-            .load(imageUrl)
-            .into(view)
-    }
 }
 
 @BindingAdapter("backGroundColor")
