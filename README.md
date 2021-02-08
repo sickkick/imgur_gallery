@@ -81,7 +81,7 @@ categories:
   * [Retrofit 2][93] A configurable REST client.
   * [OkHttp 3][94] A type-safe HTTP client.
   * [GSON][95] A Json - Object converter using reflection.
-  * [Picasso][90] Image loading.
+  * [Glide][90] Image loading.
   * [Timber][96] A logger.
   * [Stetho][97] Sophisticated debug bridge.
 
