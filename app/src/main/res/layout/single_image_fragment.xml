@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.imgurgallery.data.models.ImageData"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.singleImage.SingleImageFragment">
+
+        <com.example.imgurgallery.utils.ZoomClass
+            android:id="@+id/largeImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:imageFromUrl="@{item.link}"/>
+    </FrameLayout>
+</layout>

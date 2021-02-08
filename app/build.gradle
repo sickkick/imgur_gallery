@@ -1,0 +1,108 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    defaultConfig {
+        applicationId "com.example.imgurgallery"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField 'String', 'API_CLIENT_ID', "\"${api_client_id}\""
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.work:work-runtime-ktx:2.5.0'
+    implementation "androidx.drawerlayout:drawerlayout:1.1.1"
+    implementation 'androidx.core:core-ktx:1.3.2'
+
+    // Architecture Components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    //Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2-native-mt'
+
+    //Retrofit
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.0'
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.9.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '4.9.0'
+    implementation(group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.9.0') {
+        exclude module: 'okhttp'
+    }
+
+    //picasso
+    implementation('com.squareup.picasso:picasso:2.71828') {
+        exclude module: 'okhttp'
+    }
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+    //stetho
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    implementation 'com.facebook.stetho:stetho-urlconnection:1.5.1'
+
+    // Dagger
+    kapt 'com.google.dagger:dagger-compiler:2.31.2'
+    kapt 'com.google.dagger:dagger-android-processor:2.31.2'
+    implementation 'com.google.dagger:dagger:2.31.2'
+    implementation 'com.google.dagger:dagger-android:2.31.2'
+    implementation 'com.google.dagger:dagger-android-support:2.31.2'
+
+    // Tools
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Imgur Gallery</string>
+    <string name="loading_results">Loading results...</string>
+    <string name="string_list">List</string>
+</resources>

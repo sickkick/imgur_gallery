@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.imgurgallery.ui.search.SearchFragment"
+        android:label="Search" >
+        <action
+            android:id="@+id/action_searchFragment_to_imageSetsFragment"
+            app:destination="@id/imageSetsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageSetsFragment"
+        android:name="com.example.imgurgallery.ui.imageSets.ImageSetsFragment"
+        android:label="Gallery" >
+        <argument
+            android:name="data"
+            app:argType="com.example.imgurgallery.data.models.ImageData[]" />
+        <action
+            android:id="@+id/action_imageSetsFragment_to_singleImageFragment"
+            app:destination="@id/singleImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleImageFragment"
+        android:name="com.example.imgurgallery.ui.singleImage.SingleImageFragment"
+        android:label="Image" >
+        <argument
+            android:name="imageData"
+            app:argType="com.example.imgurgallery.data.models.ImageData" />
+    </fragment>
+</navigation>
