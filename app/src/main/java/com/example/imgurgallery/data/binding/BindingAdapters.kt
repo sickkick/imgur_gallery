@@ -64,7 +64,7 @@ fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
 
         override fun onPlayerError(error: ExoPlaybackException) {
             super.onPlayerError(error)
-            Toast.makeText(context,"Oops! Error occurred while playing media.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context,"Oops! Error occurred while playing media.", Toast.LENGTH_SHORT).show()
             //context("Oops! Error occurred while playing media.")
         }
 
