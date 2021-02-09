@@ -3,6 +3,10 @@ package com.example.imgurgallery.ui.imageSets
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Constraints
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +21,7 @@ import com.example.imgurgallery.databinding.AlbumItemBinding
 import com.example.imgurgallery.databinding.GalleryItemBinding
 import com.example.imgurgallery.ui.search.SearchAdapter
 import com.example.imgurgallery.ui.search.SearchFragmentDirections
+import com.google.android.exoplayer2.Player
 import kotlinx.android.synthetic.main.album_item.view.*
 import kotlinx.android.synthetic.main.album_item.view.albumImage
 import kotlinx.android.synthetic.main.gallery_item.view.*
@@ -33,16 +38,27 @@ class ImageAdapter : ListAdapter<ImageData, ImageAdapter.ViewHolder>(DiffCallbac
             holder.itemView.albumImage.visibility = View.VISIBLE
 
             bindImageFromUrl(holder.itemView.albumImage, item.link)
-        } else {
-            holder.itemView.videoView.visibility = View.GONE
-            holder.itemView.albumImage.visibility = View.VISIBLE
 
-            //bindVideoFromUrl(holder.itemView.videoView, item.link)
-            bindImageFromUrl(holder.itemView.albumImage, "https://i.imgur.com/${item.id}b.jpg")
+            val lp = Constraints.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            holder.itemView.layoutParams = lp
+        } else {
+            holder.itemView.videoView.visibility = View.VISIBLE
+            holder.itemView.albumImage.visibility = View.GONE
+
+            val lp = Constraints.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+            )
+
+            holder.itemView.layoutParams = lp
         }
 
         holder.apply {
-            bind(createOnClickListener(item), item, isGridLayoutManager())
+            bind(createOnClickListener(item), item)
             itemView.tag = item
         }
     }
@@ -64,19 +80,30 @@ class ImageAdapter : ListAdapter<ImageData, ImageAdapter.ViewHolder>(DiffCallbac
         }
     }
 
-    private fun isGridLayoutManager() = recyclerView.layoutManager is GridLayoutManager
-
     class ViewHolder(
             private val binding: GalleryItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root), PlayerStateCallback {
 
-        fun bind(listener: View.OnClickListener, item: ImageData, isGridLayoutManager: Boolean) {
+        fun bind(listener: View.OnClickListener, item: ImageData) {
             binding.apply {
                 clickListener = listener
                 imageItem = item
-                title.visibility = View.GONE//if (isGridLayoutManager) View.GONE else View.VISIBLE
+                callback = this@ViewHolder
+                title.visibility = View.GONE
                 executePendingBindings()
             }
+        }
+
+        override fun onVideoDurationRetrieved(duration: Long, player: Player) {
+        }
+
+        override fun onVideoBuffering(player: Player) {
+        }
+
+        override fun onStartedPlaying(player: Player) {
+        }
+
+        override fun onFinishedPlaying(player: Player) {
         }
     }
 }

@@ -15,6 +15,12 @@ import android.widget.VideoView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.imgurgallery.ui.imageSets.PlayerStateCallback
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import java.util.*
 
 
@@ -36,19 +42,52 @@ fun bindIsVisible(view: View, visible: Boolean) {
     }
 }
 
-/*
-@BindingAdapter("imageFromUrl")
-fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
-    if (!imageUrl.isNullOrEmpty()) {
-        Picasso.get()
-            .load(imageUrl)
-            .into(view)
-    } else {
-        view.setImageDrawable(null)
-    }
-}
+@BindingAdapter("video_url", "on_state_change")
+fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
+    if (url == null) return
 
- */
+    val player = ExoPlayerFactory.newSimpleInstance(
+        context, DefaultRenderersFactory(context), DefaultTrackSelector(),
+        DefaultLoadControl()
+    )
+
+    player.playWhenReady = true
+    player.repeatMode = Player.REPEAT_MODE_OFF
+    // When changing track, retain the latest frame instead of showing a black screen
+    setKeepContentOnPlayerReset(true)
+    // We'll show the controller
+    this.useController = true
+    // Provide url to load the video from here
+    val mediaSource = ExtractorMediaSource.Factory(
+        DefaultHttpDataSourceFactory("Demo")
+    ).createMediaSource(Uri.parse(url))
+
+    player.prepare(mediaSource)
+
+    this.player = player
+
+    this.player!!.addListener(object : Player.EventListener {
+
+        override fun onPlayerError(error: ExoPlaybackException) {
+            super.onPlayerError(error)
+            //context("Oops! Error occurred while playing media.")
+        }
+
+        override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+            super.onPlayerStateChanged(playWhenReady, playbackState)
+
+            if (playbackState == Player.STATE_BUFFERING) callback.onVideoBuffering(player) // Buffering.. set progress bar visible here
+            if (playbackState == Player.STATE_READY){
+                // [PlayerView] has fetched the video duration so this is the block to hide the buffering progress bar
+                callback.onVideoDurationRetrieved(player.duration, player)
+            }
+            if (playbackState == Player.STATE_READY && player.playWhenReady){
+                // [PlayerView] has started playing/resumed the video
+                callback.onStartedPlaying(player)
+            }
+        }
+    })
+}
 
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, imageUrl: String?) {

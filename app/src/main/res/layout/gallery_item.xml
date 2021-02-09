@@ -9,11 +9,16 @@
             type="android.view.View.OnClickListener"/>
 
         <variable
+            name="callback"
+            type="com.example.imgurgallery.ui.imageSets.PlayerStateCallback"/>
+
+        <variable
             name="imageItem"
             type="com.example.imgurgallery.data.models.ImageData"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/galleryItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{clickListener}">
@@ -29,13 +34,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <VideoView
+        <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/videoView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:on_state_change="@{callback}"
+            app:resize_mode="fill"
+            app:video_url="@{imageItem.link}"
+            app:surface_type="texture_view"/>
 
         <TextView
             android:id="@+id/title"

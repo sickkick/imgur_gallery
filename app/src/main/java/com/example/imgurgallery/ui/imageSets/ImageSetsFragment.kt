@@ -52,7 +52,6 @@ class ImageSetsFragment : Fragment(), Injectable {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ImageSetsFragmentBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -98,15 +97,9 @@ class ImageSetsFragment : Fragment(), Injectable {
                     .findFirstCompletelyVisibleItemPosition()
         }
 
-        if (isLinearLayoutManager) {
-            recyclerView.removeItemDecoration(gridDecoration)
-            recyclerView.addItemDecoration(linearDecoration)
-            recyclerView.layoutManager = linearLayoutManager
-        } else {
-            recyclerView.removeItemDecoration(linearDecoration)
-            recyclerView.addItemDecoration(gridDecoration)
-            recyclerView.layoutManager = gridLayoutManager
-        }
+        recyclerView.removeItemDecoration(gridDecoration)
+        recyclerView.addItemDecoration(linearDecoration)
+        recyclerView.layoutManager = linearLayoutManager
 
         recyclerView.scrollToPosition(scrollPosition)
     }
