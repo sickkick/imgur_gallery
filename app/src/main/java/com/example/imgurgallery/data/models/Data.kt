@@ -1,8 +1,5 @@
 package com.example.imgurgallery.data.models
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 data class Data(
     val account_id: Int,
     val account_url: String,

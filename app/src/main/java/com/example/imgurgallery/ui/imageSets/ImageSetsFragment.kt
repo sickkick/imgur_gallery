@@ -35,17 +35,10 @@ class ImageSetsFragment : Fragment(), Injectable {
     private val adapter: ImageAdapter by lazy { ImageAdapter() }
     private lateinit var linearLayoutManager: LinearLayoutManager
 
-    private lateinit var gridLayoutManager: GridLayoutManager
     private val linearDecoration: RecyclerView.ItemDecoration by lazy {
         VerticalItemDecoration(
                 resources.getDimension(R.dimen.margin_normal).toInt())
     }
-    private val gridDecoration: RecyclerView.ItemDecoration by lazy {
-        GridSpacingItemDecoration(
-                SearchFragment.SPAN_COUNT, resources.getDimension(R.dimen.margin_grid).toInt())
-    }
-
-    private var isLinearLayoutManager: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,32 +52,13 @@ class ImageSetsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         linearLayoutManager = LinearLayoutManager(activity)
-        gridLayoutManager = GridLayoutManager(activity, SearchFragment.SPAN_COUNT)
         setLayoutManager()
         binding.imageList.adapter = adapter
 
         adapter.submitList(args.data.toList())
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_list_representation, menu)
-        setDataRepresentationIcon(menu.findItem(R.id.list))
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.list -> {
-                isLinearLayoutManager = !isLinearLayoutManager
-                setDataRepresentationIcon(item)
-                setLayoutManager()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun setLayoutManager() {
@@ -97,7 +71,6 @@ class ImageSetsFragment : Fragment(), Injectable {
                     .findFirstCompletelyVisibleItemPosition()
         }
 
-        recyclerView.removeItemDecoration(gridDecoration)
         recyclerView.addItemDecoration(linearDecoration)
         recyclerView.layoutManager = linearLayoutManager
 
@@ -107,11 +80,6 @@ class ImageSetsFragment : Fragment(), Injectable {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun setDataRepresentationIcon(item: MenuItem) {
-        item.setIcon(if (isLinearLayoutManager)
-            R.drawable.ic_list_white_24dp else R.drawable.ic_grid_list_24dp)
     }
 
     companion object {

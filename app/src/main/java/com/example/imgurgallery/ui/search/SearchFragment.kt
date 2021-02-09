@@ -58,7 +58,6 @@ class SearchFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.searchReults.observe(viewLifecycleOwner, Observer {

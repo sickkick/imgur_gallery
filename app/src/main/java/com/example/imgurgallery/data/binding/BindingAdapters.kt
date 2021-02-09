@@ -1,6 +1,5 @@
 package com.example.imgurgallery.data.binding
 
-import android.R
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -8,10 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.VideoView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -21,8 +17,6 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import java.util.*
-
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {
@@ -70,6 +64,7 @@ fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
 
         override fun onPlayerError(error: ExoPlaybackException) {
             super.onPlayerError(error)
+            Toast.makeText(context,"Oops! Error occurred while playing media.", Toast.LENGTH_SHORT).show()
             //context("Oops! Error occurred while playing media.")
         }
 
@@ -134,18 +129,6 @@ fun bindTextColor(button: Button, color: String?) {
     }
 }
 
-/*
-@BindingAdapter("renderHtml")
-fun bindRenderHtml(view: TextView, description: String?) {
-    if (description != null) {
-        view.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        view.movementMethod = LinkMovementMethod.getInstance()
-    } else {
-        view.text = ""
-    }
-}
-*/
-
 @Suppress("DEPRECATION")
 @BindingAdapter("renderHtml")
 fun bindRenderHtml(view: TextView, source: String?) {
@@ -169,14 +152,6 @@ fun setOnLongClickListener(view: View, func: () -> Unit) {
 @BindingAdapter("rgbButtonBackground")
 fun setRgbButtonBackground(button: Button, color: String?) {
     val nColor = color!!.split(",")
-
-    /*
-    button.backgroundTintList = ColorStateList.valueOf(Color.rgb(
-        nColor[0].toInt(),
-        nColor[1].toInt(),
-        nColor[2].toInt()
-    ))
-*/
     button.setBackgroundColor(
         Color.rgb(
             nColor[0].toInt(),

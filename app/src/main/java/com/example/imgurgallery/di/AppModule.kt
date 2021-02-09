@@ -34,10 +34,6 @@ class AppModule {
 
     }
 
-    //@Singleton
-    //@Provides
-    //fun provideAppContext(app: Application) = MyCadmiumApplication.applicationContext()
-
     @CoroutineScropeIO
     @Provides
     fun provideCoroutineScopeIO() = CoroutineScope(Dispatchers.IO)

@@ -11,8 +11,6 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(private val repository: SearchRepository) : ViewModel() {
 
-    //val searchReults = MutableLiveData<Result<SearchResults>>()
-
     val searchReults: MutableLiveData<Result<SearchResults>> by lazy {
         MutableLiveData<Result<SearchResults>>()
     }
