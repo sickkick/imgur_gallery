@@ -26,7 +26,9 @@ Navigation component manages in-app navigation.
 
 Dagger 2 is used for dependency injection.
 
-Picasso is used for image loading and Timber for logging.
+Glide is used for image loading and Timber for logging.
+
+Google EXO Player for playing videos.
 
 Stetho is used to empower debugging skills (like Network calls log, Database content overview,
 UI Hierarchy view, etc).
@@ -84,6 +86,7 @@ categories:
   * [Glide][90] Image loading.
   * [Timber][96] A logger.
   * [Stetho][97] Sophisticated debug bridge.
+  * [Exo Player][98] Video Player
 
 [0]: https://developer.android.com/jetpack/components
 [1]: https://developer.android.com/topic/libraries/support-library/packages#v7-appcompat
@@ -108,13 +111,12 @@ categories:
 [95]: https://github.com/google/gson
 [96]: https://github.com/JakeWharton/timber
 [97]: http://facebook.github.io/stetho/
+[98]: https://github.com/google/ExoPlayer
 
 Android Studio IDE setup
 ------------------------
 For development, the latest version of Android Studio is required. The latest version can be
 downloaded from [here](https://developer.android.com/studio/).
-
-App uses [ktlint](https://ktlint.github.io/) to enforce Kotlin coding styles.
 
 - Close Android Studio if it's open
 
