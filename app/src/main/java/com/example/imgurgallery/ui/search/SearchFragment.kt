@@ -137,6 +137,7 @@ class SearchFragment : Fragment(), Injectable {
                 if(query!!.isNotEmpty()) {
                     viewModel.getSearchResults(query)
                     searchBox.clearFocus()
+                    binding.loadingCV.visibility = View.VISIBLE
                 }
                 return false
             }
