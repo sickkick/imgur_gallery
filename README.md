@@ -45,6 +45,7 @@ Screenshots
 
 ![SearchFragment](screenshots/Screenshot_1612814670.png "Search Albums")
 ![SearchFragment Results](screenshots/Screenshot_1612814690.png "Browse sets in grid view")
+![SingleImageFragment](screenshots/Screenshot_1612885146.png "Allows for pinch and zoom")
 
 Libraries Used
 --------------
